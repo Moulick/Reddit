@@ -1,10 +1,13 @@
 import praw
 
-reddit = praw.Reddit(client_id='*',
-client_secret='*',
-user_agent='*',
-username='*',
-password='*')
+# reddit = praw.Reddit(client_id='*',
+# client_secret='*',
+# user_agent='*',
+# username='*',
+# password='*')
+
+reddit = praw.Reddit('XD')
+
 # create a reddit instance with site from ./praw.ini
 
 print('Read only :' ,reddit.read_only) #Check if read_only
