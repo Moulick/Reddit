@@ -10,17 +10,26 @@ reddit = praw.Reddit('XD')
 
 # create a reddit instance with site from ./praw.ini
 
-print('Read only :', reddit.read_only)  # Check if read_only
+print('Read only:', reddit.read_only)  # Check if read_only
 
-friend_count = len(reddit.user.friends())
-if friend_count == 0:
-    print('You got no friends')
-else:
-    print('You have', friend_count, 'friends, congratulations!!')
 
-print('Here is a list of all your subscribed subreddits:-')
-for i, subreddits in enumerate(reddit.user.subreddits()):
-    print(i + 1, ':', ' ', subreddits, sep='')
+def friend_list(reddit_instance):
+    friend_count = len(reddit_instance.user.friends())
+    if friend_count == 0:
+        return ('You got no friends')
+    else:
+        return ('You have', friend_count, 'friends, congratulations!!')
+
+
+def sub_red(reddit_instance):
+    print('Here is a list of all your subscribed subreddits:-')
+
+    for i, subreddits in enumerate(reddit_instance.user.subreddits()):
+        print('{:>2}'.format(i + 1), subreddits, sep=': ')
+
+
+print(friend_list(reddit))
+sub_red(reddit)
 
 karma = reddit.user.karma()
 print("Here's your karma subreddit wise")
@@ -40,15 +49,17 @@ for karmaname, karm in zip(karma, karma.values()):
 print()
 
 
-blocked_users = reddit.user.blocked()
-if len(blocked_users) == 0:
-    print('You seem like a peaceful person, you haven\'t blocked anyone yet')
-else:
-    print('Hear is the list of people you have blocked:-')
-    for i, name in enumerate(blocked_users):
-        print(i+1, name)
+def blocked(reddit_instance):
+    blocked_users = reddit_instance.user.blocked()
+    if len(blocked_users) == 0:
+        print('You seem like a peaceful person, you haven\'t blocked anyone yet')
+    else:
+        print('Hear is the list of people you have blocked:-')
+        for i, name in enumerate(blocked_users):
+            print(i + 1, name)
 
 
+blocked(reddit)
 # print(reddit.user.multireddits()) #MultiReddit something
 
 contributor_sub = list(reddit.user.contributor_subreddits())
