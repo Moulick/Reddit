@@ -24,9 +24,9 @@ def friend_list(reddit_instance):
 def sub_red(reddit_instance):
     print('Here is a list of all your subscribed subreddits:-')
 
-    for i, subreddits in enumerate(reddit_instance.user.subreddits()):
-        print('{:>2}'.format(i + 1), subreddits, sep=': ')
-
+    for s_no, subreddits in enumerate(reddit_instance.user.subreddits()):
+        print('{:>2}'.format(s_no + 1), subreddits, sep=': ')
+    return 0
 
 print(friend_list(reddit))
 sub_red(reddit)
