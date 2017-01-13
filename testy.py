@@ -10,21 +10,22 @@ import pymongo
 # username='*',
 # password='*')
 
-submission_id = '5nquri'
+submission_id = '5nq244'
 
 client = pymongo.MongoClient("mongodb://moulick:abc123@localhost")
 reddit_db = client.reddit
-collection = reddit_db.tolebrone
+collection = reddit_db.whatsapp
 print('Database Ok')
 
 # create a reddit instance with site from ./praw.ini
 reddit = praw.Reddit('XD')
 print('Read only:', reddit.read_only)  # Check if read_only
 
-
 print('Ok')
 # assume you have a Reddit instance bound to variable `reddit`
 print(reddit.submission(submission_id).title)  # to make it non-lazy
+
+
 # pprint.pprint(vars(submission))
 
 
