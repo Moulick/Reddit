@@ -22,7 +22,7 @@ reddit = praw.Reddit('XD')
 print('Read only:', reddit.read_only)  # Check if read_only
 
 submission = reddit.submission(id=subbmission_id)
-print('ok')
+print('Ok')
 # assume you have a Reddit instance bound to variable `reddit`
 print(submission.title)  # to make it non-lazy
 # pprint.pprint(vars(submission))
