@@ -1,4 +1,5 @@
-import datetime
+from datetime import datetime
+from time import sleep
 
 import praw
 import pymongo
@@ -9,11 +10,11 @@ import pymongo
 # username='*',
 # password='*')
 
-subbmission_id = '5njti8'
+subbmission_id = '5nnd1r'
 
 client = pymongo.MongoClient("mongodb://moulick:abc123@localhost")
 reddit_db = client.reddit
-collection = reddit_db.subbmission_id
+collection = reddit_db.music
 print('Database Ok')
 
 # create a reddit instance with site from ./praw.ini
@@ -26,17 +27,30 @@ print('ok')
 print(submission.title)  # to make it non-lazy
 # pprint.pprint(vars(submission))
 
-score = submission.score
-upvote_ratio = submission.upvote_ratio
 
-ups = score * upvote_ratio
-downs = score * (1 - upvote_ratio)
-print('score:', score)
-print('ratio:', upvote_ratio)
-print('ups:', round(ups))
-print('downs:', round(downs))
+def upvotecount(submission):
+    score = submission.score
+    upvote_ratio = submission.upvote_ratio
 
-post = {"author": "Mike",
-        "text": "My first blog post!",
-        "tags": ["mongodb", "python", "pymongo"],
-        "date": datetime.datetime.utcnow()}
+    ups = score * upvote_ratio
+    downs = score * (1 - upvote_ratio)
+    # print('score:', score)
+    # print('ratio:', upvote_ratio)
+    # print('ups:', round(ups))
+    # print('downs:', round(downs))
+    # print(datetime.utcnow())
+    post = {'score': score,
+            'ratio': upvote_ratio,
+            'ups': round(ups),
+            'downs': round(downs),
+            "time": datetime.utcnow()}
+
+    post_id = collection.insert_one(post).inserted_id
+
+
+count = 1
+while True:
+    upvotecount(submission)
+    print(count, ':', 'another one')
+    count += 1
+    sleep(5)
