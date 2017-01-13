@@ -1,4 +1,7 @@
+import datetime
+
 import praw
+import pymongo
 
 # reddit = praw.Reddit(client_id='*',
 # client_secret='*',
@@ -6,14 +9,18 @@ import praw
 # username='*',
 # password='*')
 
-reddit = praw.Reddit('XD')
+subbmission_id = '5njti8'
+
+client = pymongo.MongoClient("mongodb://moulick:abc123@localhost")
+reddit_db = client.reddit
+collection = reddit_db.subbmission_id
+print('Database Ok')
 
 # create a reddit instance with site from ./praw.ini
-
+reddit = praw.Reddit('XD')
 print('Read only:', reddit.read_only)  # Check if read_only
 
-submission = reddit.submission(
-    url='https://www.reddit.com/r/pics/comments/5njti8/if_you_didnt_believe_it_was_a_cake_well_heres_the/')
+submission = reddit.submission(id=subbmission_id)
 print('ok')
 # assume you have a Reddit instance bound to variable `reddit`
 print(submission.title)  # to make it non-lazy
@@ -28,3 +35,8 @@ print('score:', score)
 print('ratio:', upvote_ratio)
 print('ups:', round(ups))
 print('downs:', round(downs))
+
+post = {"author": "Mike",
+        "text": "My first blog post!",
+        "tags": ["mongodb", "python", "pymongo"],
+        "date": datetime.datetime.utcnow()}
