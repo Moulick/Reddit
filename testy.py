@@ -12,7 +12,7 @@ import pymongo
 
 submission_id = '5nq244'
 
-client = pymongo.MongoClient("mongodb://moulick:abc123@localhost")
+client = pymongo.MongoClient("mongodb://moulick:1011sailboat@localhost")
 reddit_db = client.reddit
 collection = reddit_db.whatsapp
 print('Database Ok')
@@ -53,6 +53,7 @@ def upvotecount(submission_id):
 
 count = 1
 while True:
+    print('trying')
     upvotecount(submission_id)
     print(count, ':', 'another one')
     count += 1
