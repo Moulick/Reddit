@@ -10,11 +10,11 @@ import pymongo
 # username='*',
 # password='*')
 
-submission_id = '5o4bhv'
+submission_id = '5oidvk'
 
 client = pymongo.MongoClient("mongodb://moulick:1011sailboat@localhost")
 reddit_db = client.reddit
-collection = reddit_db.wifi
+collection = reddit_db.shkreli
 print('Database Ok')
 
 # create a reddit instance with site from ./praw.ini
@@ -26,6 +26,7 @@ print('Ok')
 print(reddit.submission(submission_id).title)  # to make it non-lazy
 
 
+# submission = reddit.submission(id=submission_id)
 # pprint.pprint(vars(submission))
 
 
