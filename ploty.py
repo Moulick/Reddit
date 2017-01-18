@@ -18,15 +18,15 @@ post_url = 'https://redd.it/' + submission_id
 print(post_url)
 
 
-def created_time(submission_id):
+def created_time(post_id):
     reddit = praw.Reddit('XD')
-    submission = reddit.submission(submission_id)
+    submission = reddit.submission(post_id)
     # print(submission.title)
     # print(int(submission.created_utc))
     return int(submission.created_utc)
 
 
-def i_plot(created):
+def i_plot(created_utc):
 
     fields = {'ups': True,
               'time': True,
@@ -38,7 +38,7 @@ def i_plot(created):
     for project in projects:
         ups_list.append(project['ups'])  # Append upsvotes
         time_list_utc.append(project['time'])  # Append
-        time_in_sec.append((project['time'] - datetime.datetime(1970, 1, 1)).total_seconds() - created)
+        time_in_sec.append((project['time'] - datetime.datetime(1970, 1, 1)).total_seconds() - created_utc)
     # print('ups_list', ups_list)
     # print('time_list_utc', time_list_utc)
     #
