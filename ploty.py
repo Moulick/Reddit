@@ -6,9 +6,10 @@ import pymongo
 
 client = pymongo.MongoClient("mongodb://moulick:1011sailboat@localhost")
 reddit_db = client.reddit
-collection = reddit_db.shkreli
 
-submission_id = '5oidvk'
+collection = reddit_db.toblerone
+submission_id = '5nquri'
+
 post_url = 'https://redd.it/' + submission_id
 # Check if time is in increasing order to verify time data
 # if sorted(time_in_sec) == time_in_sec:
