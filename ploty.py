@@ -1,23 +1,33 @@
 import datetime
 
 import matplotlib.pyplot as plt
+import praw
 import pymongo
 
 client = pymongo.MongoClient("mongodb://moulick:1011sailboat@localhost")
 reddit_db = client.reddit
 collection = reddit_db.shkreli
-print('Database Ok')
 
-
+submission_id = '5oidvk'
+post_url = 'https://redd.it/' + submission_id
 # Check if time is in increasing order to verify time data
 # if sorted(time_in_sec) == time_in_sec:
 #     print('ok')
 # else:
 #     print('not ok')
+print(post_url)
 
 
-def i_plot():
-    created = 1484663909
+def created_time(submission_id):
+    reddit = praw.Reddit('XD')
+    submission = reddit.submission(submission_id)
+    # print(submission.title)
+    # print(int(submission.created_utc))
+    return int(submission.created_utc)
+
+
+def i_plot(created):
+
     fields = {'ups': True,
               'time': True,
               '_id': False}
@@ -37,16 +47,18 @@ def i_plot():
     return time_in_sec, ups_list
 
 
+created = created_time(submission_id)
+
 plt.ion()
 f, ax = plt.subplots(1)
 
 while True:
-    time, ups = i_plot()
-    ax.plot(time, ups, markersize=1)
+    time, ups = i_plot(created)
+    ax.plot(time, ups, markersize=0.1)
     plt.ylabel('No of Upvotes')
     plt.xlabel('Time in sec from post creation')
-    ax.set_title("Plot for 'https://redd.it/5nq244'")
+    ax.set_title(post_url)
     ax.set_ylim(ymin=0)
     ax.set_xlim(xmin=0)
-    plt.show()
+    plt.draw_all()
     plt.pause(1)

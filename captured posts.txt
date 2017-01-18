@@ -1,0 +1,25 @@
+https://redd.it/5oidvk - shkreli
+
+https://redd.it/5nq244 - whatsapp
+
+https://redd.it/5nquri - toblerone
+
+https://redd.it/5o4bhv - wifi
+
+
+
+
+
+collection = reddit_db.shkreli
+submission_id = '5oidvk'
+
+collection = reddit_db.whatsapp
+submission_id = '5nq244'
+
+
+collection = reddit_db.wifi
+submission_id = '5o4bhv'
+
+
+collection = reddit_db.toblerone
+submission_id = '5nquri'

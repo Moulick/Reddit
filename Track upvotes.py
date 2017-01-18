@@ -53,9 +53,13 @@ def upvotecount(submission_id):
 
 
 count = 1
-while True:
-    print('trying')
-    upvotecount(submission_id)
-    print(count, ':', 'another one')
-    count += 1
-    sleep(10)
+
+try:
+    while True:
+        print('trying')
+        upvotecount(submission_id)
+        print(count, ':', 'another one')
+        count += 1
+        sleep(5)
+except:
+    pass
