@@ -1,3 +1,4 @@
+import sys
 from datetime import datetime
 from time import sleep
 
@@ -9,8 +10,10 @@ import pymongo
 # user_agent='*',
 # username='*',
 # password='*')
-
-url = 'https://redd.it/5p58sx'
+if len(sys.argv) == 2:
+    url = sys.argv[1]
+else:
+    url = 'https://redd.it/5p58sx'
 
 client = pymongo.MongoClient("mongodb://moulick:1011sailboat@localhost")
 reddit_db = client.reddit
@@ -49,7 +52,7 @@ def upvotecount(submission_url):
             'downs': round(downs),
             "time": datetime.utcnow()}
 
-    post_id = collection.insert_one(post).inserted_id
+    _ = collection.insert_one(post).inserted_id
 
 
 count = 1
@@ -64,3 +67,4 @@ while True:
     except Exception as e:
         continue
         print(e)
+        continue
