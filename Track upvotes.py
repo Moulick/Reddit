@@ -10,11 +10,11 @@ import pymongo
 # username='*',
 # password='*')
 
-submission_id = '5oidvk'
+url = 'https://redd.it/5p58sx'
 
 client = pymongo.MongoClient("mongodb://moulick:1011sailboat@localhost")
 reddit_db = client.reddit
-collection = reddit_db.shkreli
+collection = reddit_db[url]
 print('Database Ok')
 
 # create a reddit instance with site from ./praw.ini
@@ -23,15 +23,15 @@ print('Read only:', reddit.read_only)  # Check if read_only
 
 print('Ok')
 # assume you have a Reddit instance bound to variable `reddit`
-print(reddit.submission(submission_id).title)  # to make it non-lazy
+print(reddit.submission(url=url).title)  # to make it non-lazy
 
 
 # submission = reddit.submission(id=submission_id)
 # pprint.pprint(vars(submission))
 
 
-def upvotecount(submission_id):
-    submission = reddit.submission(id=submission_id)
+def upvotecount(submission_url):
+    submission = reddit.submission(url=submission_url)
     score = submission.score
     upvote_ratio = submission.upvote_ratio
 
@@ -42,7 +42,7 @@ def upvotecount(submission_id):
     # print('ups:', round(ups))
     # print('downs:', round(downs))
     # print(datetime.utcnow())
-    post = {'id': submission_id,
+    post = {'url': submission_url,
             'score': score,
             'ratio': upvote_ratio,
             'ups': round(ups),
@@ -54,12 +54,13 @@ def upvotecount(submission_id):
 
 count = 1
 
-try:
-    while True:
+while True:
+    try:
         print('trying')
-        upvotecount(submission_id)
+        upvotecount(url)
         print(count, ':', 'another one')
         count += 1
         sleep(5)
-except:
-    pass
+    except Exception as e:
+        continue
+        print(e)
