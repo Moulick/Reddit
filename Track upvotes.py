@@ -1,4 +1,3 @@
-import sys
 from datetime import datetime
 from time import sleep
 
@@ -10,10 +9,8 @@ import pymongo
 # user_agent='*',
 # username='*',
 # password='*')
-if len(sys.argv) == 2:
-    url = sys.argv[1]
-else:
-    url = 'https://redd.it/5p58sx'
+
+url = 'https://redd.it/5qbkqm'
 
 client = pymongo.MongoClient("mongodb://moulick:1011sailboat@localhost")
 reddit_db = client.reddit
@@ -59,11 +56,17 @@ count = 1
 
 while True:
     try:
-        print('trying')
+        print(count, ':', 'trying')
         upvotecount(url)
         print(count, ':', 'another one')
         count += 1
-        sleep(5)
+
+        limits = reddit.auth.limits
+        print(limits)
+        if limits[remaining] < 10:
+            sleep(60)
+        else:
+            sleep(5)
     except Exception as e:
         continue
         print(e)
