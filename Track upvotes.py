@@ -56,18 +56,19 @@ count = 1
 
 while True:
     try:
-        print(count, ':', 'trying')
-        upvotecount(url)
-        print(count, ':', 'another one')
-        count += 1
-
         limits = reddit.auth.limits
         print(limits)
-        if limits[remaining] < 10:
+        if limits['remaining'] < 10:
+            print('Limit remaining below 10')
             sleep(60)
         else:
+            print(count, ':', 'trying')
+            upvotecount(url)
+            print(count, ':', 'another one')
+            count += 1
             sleep(5)
+
+
     except Exception as e:
-        continue
         print(e)
         continue
