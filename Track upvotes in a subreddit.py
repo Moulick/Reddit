@@ -68,12 +68,14 @@ while running:
             sleep(60)
         else:
             for submission in subreddit.rising(limit=25):
-                print('title:', submission.title)
-                print('score:', submission.score)  # Output: the submission's score
-                # upvotecount(submission)
-                print('https://redd.it/' + submission.id, sep='')
-                print(submission.url)  # Output: The URL
-                # sleep(5)
+                if submission.score > 20:
+                    post = {'url': 'https://redd.it/' + submission.id,
+                            'id': submission.id,
+                            'created_utc': submission.created_utc
+                            }
+                    tracked = reddit_db['tracked']
+                    _ = tracked.insert_one(post).inserted_id
+                    sleep(900)
     except KeyboardInterrupt:
         print('Termination received. Goodbye!')
         running = False

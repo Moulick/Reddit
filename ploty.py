@@ -48,16 +48,13 @@ def i_plot(created_utc):
 
 created = created_time(submission_url)
 
-plt.ion()
 f, ax = plt.subplots(1)
 
-while True:
-    time, ups = i_plot(created)
-    ax.plot(time, ups, markersize=0.1)
-    plt.ylabel('No of Upvotes')
-    plt.xlabel('Time in sec from post creation')
-    ax.set_title(submission_url)
-    ax.set_ylim(ymin=0)
-    ax.set_xlim(xmin=0)
-    plt.draw_all()
-    plt.pause(1)
+time, ups = i_plot(created)
+ax.plot(time, ups, markersize=0.1)
+plt.ylabel('No of Upvotes')
+plt.xlabel('Time in sec from post creation')
+ax.set_title(submission_url)
+ax.set_ylim(ymin=0)
+ax.set_xlim(xmin=0)
+plt.show()
