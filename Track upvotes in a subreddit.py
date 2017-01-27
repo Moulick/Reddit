@@ -1,4 +1,5 @@
 from datetime import datetime
+from time import sleep
 
 import praw
 import pymongo
@@ -60,27 +61,22 @@ count = 1
 running = True
 while running:
     try:
-        for submission in subreddit.rising(limit=10):
-            print('title:', submission.title)
-            print('score:', submission.score)  # Output: the submission's score
-            upvotecount(submission)
-            print('https://redd.it/' + submission.id, sep='')
-            print(submission.url)  # Output: The URL
-            print(reddit.auth.limits)
-            # sleep(5)
+        limits = reddit.auth.limits
+        print(limits)
+        if limits['remaining'] < 10:
+            print('Limit remaining below 10')
+            sleep(60)
+        else:
+            for submission in subreddit.rising(limit=25):
+                print('title:', submission.title)
+                print('score:', submission.score)  # Output: the submission's score
+                # upvotecount(submission)
+                print('https://redd.it/' + submission.id, sep='')
+                print(submission.url)  # Output: The URL
+                # sleep(5)
     except KeyboardInterrupt:
         print('Termination received. Goodbye!')
         running = False
     except Exception as e:
         print(e)
-
-        # try:
-        #     print(count, ':', 'trying')
-        #     upvotecount(url)
-        #     print(count, ':', 'another one')
-        #     count += 1
-        #     sleep(5)
-        # except Exception as e:
-        #     continue
-        #     print(e)
-        #     continue
+        continue

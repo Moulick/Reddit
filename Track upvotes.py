@@ -37,7 +37,7 @@ def upvotecount(submission_url):
 
     ups = score * upvote_ratio
     downs = score * (1 - upvote_ratio)
-    # print('score:', score)
+    print('score:', score)
     # print('ratio:', upvote_ratio)
     # print('ups:', round(ups))
     # print('downs:', round(downs))
@@ -67,7 +67,6 @@ while True:
             print(count, ':', 'another one')
             count += 1
             sleep(5)
-
 
     except Exception as e:
         print(e)
