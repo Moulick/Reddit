@@ -42,7 +42,9 @@ def upvotecount(submission_url):
     # print('ups:', round(ups))
     # print('downs:', round(downs))
     # print(datetime.utcnow())
-    post = {'url': submission_url,
+    post = {'url': url,
+            'title': submission.title,
+            'created': submission.created_utc,
             'score': score,
             'ratio': upvote_ratio,
             'ups': round(ups),
@@ -70,4 +72,5 @@ while True:
 
     except Exception as e:
         print(e)
+        sleep(5)
         continue
