@@ -52,36 +52,46 @@ subreddit = reddit.subreddit('funny')
 print('Read only:', reddit.read_only)  # Check if read_only
 
 print('Ok')
-
-# print(reddit.submission(url=url).title)  # to make it non-lazy
-
 # pprint.pprint(vars(submission))
 
 
+# printitng to file for testing
+file = open('loop.txt', 'a+')
+print('file ok')
 count = 1
 
 running = True
 while running:
     try:
-        for submission in subreddit.rising(limit=25):
-            if submission.score > 20:
+        for submission in subreddit.rising(limit=50):
+            # print(submission.title)
+
+            if submission.score > 50:
+
                 post = {'url': 'https://redd.it/' + submission.id,
                         'title': submission.title,
                         'id': submission.id,
                         'created_utc': submission.created_utc
                         }
+                print(post)
+                file.write(submission.title)
+                file.write('\n')
                 tracked = reddit_db['tracked']
-                _ = tracked.insert_one(post).inserted_id
-            limits = reddit.auth.limits
-            print(limits)
-            if limits['remaining'] < 10:
-                print('Limit remaining below 10')
-                sleep(60)  # sleep to get recharge api request limit
+                # _ = tracked.insert_one(post).inserted_id
             else:
-                sleep(5)  # current value:5, change to 900 later
+                print('none yet!')
+        limits = reddit.auth.limits
+        print(limits)
+        if limits['remaining'] < 10:
+            print('Limit remaining below 10')
+            sleep(60)  # sleep to get recharge api request limit
+        else:
+            sleep(5)  # current value:5, change to 900 later
     except KeyboardInterrupt:
         print('Termination received. Goodbye!')
         running = False
     except Exception as e:
         print(e)
+        sleep(5)
         continue
+
