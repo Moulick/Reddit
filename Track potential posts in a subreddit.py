@@ -67,7 +67,7 @@ while running:
             # print(submission.title)
 
             if submission.score > 50:
-
+                print(submission.title + ' : ' + submission.score)
                 post = {'url': 'https://redd.it/' + submission.id,
                         'title': submission.title,
                         'id': submission.id,
@@ -77,7 +77,11 @@ while running:
                 file.write(submission.title)
                 file.write('\n')
                 tracked = reddit_db['tracked']
-                # _ = tracked.insert_one(post).inserted_id
+                try:
+                    _ = tracked.insert_one(post).inserted_id
+                except pymongo.errors.DuplicateKeyError as e:
+                    print(e)
+                    continue
             else:
                 print('none yet!')
         limits = reddit.auth.limits
@@ -94,4 +98,3 @@ while running:
         print(e)
         sleep(5)
         continue
-
